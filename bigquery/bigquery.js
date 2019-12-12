@@ -34,12 +34,13 @@ module.exports = function (RED) {
             return;
         }
         node.on("input", function (msg) {
-            node.status({ fill: "blue", shape: "dot", text: "gcp.status.querying" });            
-            if (!node.query && msg.payload) {
-                node.query = msg.payload;
-                node.warn("Using query from payload: " + node.query);
+            node.status({ fill: "blue", shape: "dot", text: "gcp.status.querying" });
+            let query = node.query;            
+            if (!query && msg.payload) {
+                query = msg.payload;
+                node.warn("Using query from payload: " + query);
             }
-            bigquery.query(node.query, function (err, rows) {
+            bigquery.query(query, function (err, rows) {
                 if (err) {
                     node.error("gcp.error.query-failed: " + JSON.stringify(err));
                 }
