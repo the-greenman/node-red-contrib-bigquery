@@ -28,15 +28,16 @@ module.exports = function (RED) {
         this.query = n.query;
         var bigquery = this.bigquery_node.bigquery || null,
             node = this;
+            node.warn(bigquery);
         if (!bigquery) {
             node.warn("gcp.warn.missing-credentials");
             return;
         }
         node.on("input", function (msg) {
-            node.status({ fill: "blue", shape: "dot", text: "gcp.status.querying" });
-            node.warn(msg.payload);
-            if (msg.payload) {
+            node.status({ fill: "blue", shape: "dot", text: "gcp.status.querying" });            
+            if (!node.query && msg.payload) {
                 node.query = msg.payload;
+                node.warn("Using query from payload: " + node.query);
             }
             bigquery.query(node.query, function (err, rows) {
                 if (err) {

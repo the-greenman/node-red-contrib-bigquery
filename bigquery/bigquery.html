@@ -13,7 +13,10 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="bigquery query">
-    <p>BigQuery query node. Query data in BigQuery. The query statement(currently BigQuery only supports SELECT statement) must be specified in the node property. If the query succeeded, the results are returned in <code>msg.payload</code>. Currently, this node supports only single statement.
+    <p>BigQuery query node. Query data in BigQuery. 
+        The query statement may be specified in the node property, or provided as <code>msg.payload</code>. 
+        If the query succeeded, the results are returned in <code>msg.payload</code>. 
+        Currently, this node supports only single statement. 
 </script>
 <script type="text/javascript">
     RED.nodes.registerType('bigquery query',{
